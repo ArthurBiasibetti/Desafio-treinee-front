@@ -1,0 +1,30 @@
+.ql-editor {
+  min-height: 8rem;
+  font-weight: var(--is-400);
+  input:focus {
+    box-shadow: 0.5rem var(--teal-200);
+    border-color: var(--gray-200);
+    outline: var(--teal-200) 0.125rem solid;
+  }
+  &__label-error,
+  .invalid-feedback {
+    color: var(--red-500);
+    font-weight: var(--is-400);
+  }
+  .invalid-feedback {
+    font-size: 0.87rem;
+  }
+  .form-control:disabled,
+  .form-control[readonly] {
+    background-color: transparent;
+    border: 0.06rem solid var(--gray-200);
+    color: var(--gray-200);
+    pointer-events: none;
+    &::placeholder {
+      color: var(--gray-200);
+    }
+  }
+  &__label-disabled {
+    color: var(--gray-200);
+  }
+}

@@ -1,0 +1,28 @@
+header {
+  .nav {
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    max-height: 4rem;
+    background-color: var(--white-100);
+    &__toggle {
+      color: var(--teal-500);
+      margin-right: 0.45rem;
+      cursor: pointer;
+    }
+    &__title {
+      color: var(--gray-300);
+      text-transform: uppercase;
+      h2 {
+        font-weight: var(--is-700);
+        font-size: 0.81rem;
+        position: relative;
+        top: 0.43rem;
+      }
+    }
+    &__button {
+      font-weight: var(--is-600);
+      font-size: .80rem;
+    }
+  }
+}

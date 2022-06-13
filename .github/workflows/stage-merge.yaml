@@ -1,0 +1,22 @@
+name: Stage merge workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Stage merge job
+    runs-on: [self-hosted, default, any]
+
+    steps:
+      - name: Checkout actions
+        uses: actions/checkout@v2
+        with:
+          repository: SoftdesignBrasil/github-actions
+          ref: main
+          token: ${{secrets.ACTIONS_TOKEN}}
+          path: ./.github/actions
+
+      - uses: ./.github/actions/merge-develop-stage
+        with:
+          project-prefix: quickstart
+          github-token: ${{ secrets.ACTIONS_TOKEN }}

@@ -1,0 +1,57 @@
+.badge {
+  font-weight: var(--is-700);
+  font-size: 0.81rem;
+  text-transform: capitalize;
+}
+
+.bg-success-light {
+  background-color: var(--green-400);
+}
+
+.bg-success-dark {
+  background-color: var(--green-600);
+}
+
+.bg-primary-light {
+  background-color: var(--teal-400);
+}
+
+.bg-primary-dark {
+  background-color: var(--teal-700);
+}
+
+.bg-secondary-light {
+  background-color: var(--gray-500);
+}
+
+.bg-secondary-dark {
+  background-color: var(--gray-600);
+}
+
+.bg-assignment {
+  background-color: var(--yellow-500);
+}
+
+.bg-confirmation {
+  background-color: var(--green-400);
+}
+
+.bg-review {
+  background-color: var(--teal-300);
+}
+
+.bg-increase {
+  background-color: var(--green-450);
+}
+
+.bg-debasement {
+  background-color: var(--red-300);
+}
+
+.bg-closure {
+  background-color: var(--gray-400);
+}
+
+.bg-canceled {
+  background-color: var(--gray-300);
+}

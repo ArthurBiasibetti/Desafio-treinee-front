@@ -1,0 +1,23 @@
+body {
+  font-family: var(--font-family);
+  color: var(--gray-900);
+  font-size: var(--is-md);
+  font-weight: var(--is-400);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+select,
+input,
+table {
+  font-family: var(--font-family);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

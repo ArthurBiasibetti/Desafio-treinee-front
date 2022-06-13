@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+
+*.css
+*.svg
+*.scss
+*.png

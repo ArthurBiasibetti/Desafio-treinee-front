@@ -1,0 +1,14 @@
+name: Develop undeploy workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Develop undeploy job
+    runs-on: [self-hosted, kubernetes]
+
+    steps:
+      - name: Api clean
+        run: kubectl delete -f k8s/develop
+
+

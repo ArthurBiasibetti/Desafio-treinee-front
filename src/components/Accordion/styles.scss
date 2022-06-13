@@ -1,0 +1,31 @@
+.dataAccordion {
+  .accordion-item {
+    border-radius: 0.5rem !important;
+  }
+  .accordion-header {
+    .accordion-button {
+      background-color: var(--gray-700);
+      padding: 1.25rem 1.5rem 1.25rem 2rem;
+      color: var(--white-100);
+      font-size: 0.75rem;
+      font-weight: var(--is-700);
+      line-height: 1.25rem;
+      text-transform: uppercase;
+      border-radius: 0.5rem 0.5rem 0 0 !important;
+      &::after {
+        background-image: url(../../statics/icons/arrow.svg);
+      }
+      &:focus {
+        box-shadow: 0.5rem var(--teal-200);
+        border-color: var(--gray-200);
+        outline: var(--teal-200) 0.125rem solid;
+      }
+    }
+    .collapsed {
+      border-radius: 0.5rem !important;
+    }
+  }
+  .accordion-body {
+    padding: 0;
+  }
+}

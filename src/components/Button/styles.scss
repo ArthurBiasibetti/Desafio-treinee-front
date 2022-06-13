@@ -1,0 +1,351 @@
+/*!
+ * Mixins de estilos.
+*/
+
+@mixin btnDisabled {
+  &:disabled,
+  &.disabled {
+    color: var(--white-100);
+    pointer-events: none;
+    background-color: var(--gray-200);
+    border: 0.12rem solid var(--gray-200);
+  }
+}
+
+@mixin btnDisabledOutline {
+  &:disabled,
+  &.disabled {
+    color: var(--gray-300);
+    pointer-events: none;
+    background-color: var(--white-100);
+    border: 0.12rem solid var(--gray-300);
+    svg {
+      color: var(--gray-200);
+    }
+  }
+}
+
+/*!
+ * Classe btn do bootstrap.
+*/
+
+.btn {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: var(--is-600);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  height: 2.12rem;
+  border-radius: 0.25rem;
+  border: 0.12rem solid transparent;
+  svg {
+    color: var(--white-100);
+  }
+}
+
+/*!
+ * Configurações adicionais.
+*/
+
+.btn-border {
+  border-radius: 2.81rem !important;
+}
+
+.btn-icon-left {
+  svg {
+    margin-right: 0.4rem;
+  }
+}
+
+.btn-icon-right {
+  svg {
+    margin-left: 0.4rem;
+  }
+}
+
+/*!
+ * Lista de botões padrões.
+*/
+
+.btn-primary {
+  color: var(--white-100);
+  background-color: var(--teal-500);
+  &:hover {
+    background-color: var(--teal-600);
+    border-color: var(--teal-600);
+  }
+  &:focus {
+    background-color: var(--teal-700);
+    border-color: var(--teal-600);
+  }
+  &:active {
+    background-color: var(--teal-600);
+    border-color: transparent;
+  }
+  @include btnDisabled;
+}
+
+.btn-secondary {
+  color: var(--white-100);
+  background-color: var(--gray-600);
+  &:hover {
+    background-color: var(--gray-700);
+    border-color: var(--gray-700);
+  }
+  &:focus {
+    background-color: var(--gray-600);
+    border: 0.12rem solid var(--gray-900);
+  }
+  &:active {
+    background-color: var(--gray-700);
+  }
+  @include btnDisabled;
+}
+
+.btn-success {
+  color: var(--white-100);
+  background-color: var(--green-500);
+  &:hover {
+    background-color: var(--green-700);
+    border-color: var(--green-700);
+  }
+  &:focus {
+    background-color: var(--green-500);
+    border: 0.12rem solid var(--green-900);
+  }
+  &:active {
+    background-color: var(--green-700);
+  }
+  @include btnDisabled;
+}
+
+.btn-danger {
+  color: var(--white-100);
+  background-color: var(--red-500);
+  &:hover {
+    background-color: var(--red-700);
+    border-color: var(--red-700);
+  }
+  &:focus {
+    background-color: var(--red-500);
+    border: 0.12rem solid var(--red-900);
+  }
+  &:active {
+    background-color: var(--red-700);
+  }
+  @include btnDisabled;
+}
+
+/*!
+ * Lista de botões outline.
+*/
+
+.btn-outline-primary {
+  background-color: var(--white-100);
+  border-color: var(--teal-500);
+  color: var(--teal-500);
+  &:hover {
+    color: var(--white-100);
+    background-color: var(--teal-500);
+    border-color: var(--teal-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  &:focus {
+    color: var(--teal-500);
+    background-color: var(--teal-100);
+    border-color: var(--teal-600);
+    svg {
+      color: var(--teal-500);
+    }
+  }
+  &:active {
+    color: var(--white-100);
+    background-color: var(--teal-500);
+    border-color: var(--teal-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  @include btnDisabledOutline;
+  svg {
+    color: var(--teal-500);
+  }
+}
+
+.btn-outline-warning {
+  background-color: var(--white-100);
+  border-color: var(--yellow-500);
+  color: var(--yellow-500);
+  &:hover {
+    color: var(--white-100);
+    background-color: var(--yellow-500);
+    border-color: var(--yellow-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  &:focus {
+    color: var(--yellow-500);
+    background-color: var(--yellow-100);
+    border-color: var(--yellow-600);
+    svg {
+      color: var(--yellow-500);
+    }
+  }
+  &:active {
+    color: var(--white-100);
+    background-color: var(--yellow-500);
+    border-color: var(--yellow-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  @include btnDisabledOutline;
+  svg {
+    color: var(--yellow-500);
+  }
+}
+
+.btn-outline-secondary {
+  background-color: var(--white-100);
+  border-color: var(--gray-500);
+  color: var(--gray-700);
+  &:hover {
+    color: var(--white-100);
+    background-color: var(--gray-500);
+    border-color: var(--gray-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  &:focus {
+    color: var(--gray-500);
+    background-color: var(--gray-100);
+    border-color: var(--gray-600);
+    svg {
+      color: var(--gray-500);
+    }
+  }
+  &:active {
+    color: var(--white-100);
+    background-color: var(--gray-500);
+    border-color: var(--gray-500);
+    svg {
+      color: var(--white-500);
+    }
+  }
+  @include btnDisabledOutline;
+  svg {
+    color: var(--gray-500);
+  }
+}
+
+.btn-outline-success {
+  background-color: var(--white-100);
+  border-color: var(--green-500);
+  color: var(--green-500);
+  &:hover {
+    color: var(--white-100);
+    background-color: var(--green-500);
+    border-color: var(--green-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  &:focus {
+    color: var(--green-500);
+    background-color: var(--green-100);
+    border-color: var(--green-600);
+    svg {
+      color: var(--green-500);
+    }
+  }
+  &:active {
+    color: var(--white-100);
+    background-color: var(--green-500);
+    border-color: var(--green-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  @include btnDisabledOutline;
+  svg {
+    color: var(--green-500);
+  }
+}
+
+.btn-outline-danger {
+  background-color: var(--white-100);
+  border-color: var(--red-500);
+  color: var(--red-500);
+  &:hover {
+    color: var(--white-100);
+    background-color: var(--red-500);
+    border-color: var(--red-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  &:focus {
+    color: var(--red-500);
+    background-color: var(--red-100);
+    border-color: var(--red-600);
+    svg {
+      color: var(--red-500);
+    }
+  }
+  &:active {
+    color: var(--white-100);
+    background-color: var(--red-500);
+    border-color: var(--red-500);
+    svg {
+      color: var(--white-100);
+    }
+  }
+  @include btnDisabledOutline;
+  svg {
+    color: var(--red-500);
+  }
+}
+
+.btn-transparent {
+  background: transparent;
+  color: var(--gray-900);
+  border: none;
+  font-weight: var(--is-400);
+  padding-left: 0;
+  svg {
+    fill: var(--gray-900);
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: transparent;
+    color: var(--gray-900);
+  }
+}
+
+.btn-tabs {
+  color: var(--teal-500);
+  border: none;
+  border-bottom: 0.063rem solid var(--teal-600) !important;
+  background-color: var(--white-500);
+  margin-top: 1rem;
+  border-radius: 0 !important;
+  &:hover {
+    background-color: var(--teal-400);
+    border-color: var(--teal-600);
+  }
+}
+
+.btn-active {
+  color: var(--white-100);
+  border: none;
+  border-bottom: 0.063rem solid var(--white-600);
+  background-color: var(--teal-500);
+  margin-top: 1rem;
+  border-radius: 0;
+}

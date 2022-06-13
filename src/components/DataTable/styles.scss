@@ -1,0 +1,28 @@
+.table {
+  th {
+    font-weight: var(--is-700);
+    font-size: var(--is-sm);
+    text-transform: uppercase;
+  }
+  td {
+    font-weight: var(--is-400);
+    font-size: var(--is-sm);
+    vertical-align: middle;
+  }
+  > :not(:first-child) {
+    border-top: transparent !important;
+  }
+  &__actions {
+    text-align: center;
+  }
+  &__icon-svg {
+    margin-left: var(--is-md);
+    cursor: pointer;
+  }
+  &__icon-trash {
+    color: var(--status-color-problem);
+  }
+  &__icon-update {
+    color: var(--main-color);
+  }
+}

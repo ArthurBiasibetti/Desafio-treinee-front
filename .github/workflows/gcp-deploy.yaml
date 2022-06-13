@@ -1,0 +1,76 @@
+name: Build Backoffice GCP
+
+on:
+  push:
+    branches:
+      - nao_definido
+
+env:
+  GKE_CLUSTER: nome_cluster_gcp # cluster-0
+  GKE_ZONE: zona_cluster # southamerica-east1-a
+  DEPLOYMENT_NAME: backoffice-deployment
+  IMAGE: backoffice
+  TAG: nome_branch #staging
+  NAMESPACE: namespace_projeto # default
+  PROJECT_NAME: <nome_projeto>
+
+jobs:
+  build:
+    name: Build, push, and deploy
+    runs-on: ubuntu-latest
+    env:
+      VAR_1: teste
+      REACT_APP_API_URL: https://api.xxx.com
+      REACT_APP_MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
+    steps:
+      - name: Checkout staging
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14
+        uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+          node-version: '14'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          service_account_key: ${{ secrets.GCP_KEY }}
+          project_id: <id_projeto_no_gcp>
+
+      - name: Configure Docker to use the gcloud command-line tool as a credential
+        run: gcloud --quiet auth configure-docker
+
+      - name: Build container image
+        run: docker build -t gcr.io/$PROJECT_NAME/$IMAGE:$TAG .
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push gcr.io/$PROJECT_NAME/$IMAGE:$TAG
+
+      - name: Get the GKE credentials so we can deploy to the cluster
+        run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+
+      - name: Delete deployment
+        run: kubectl delete deployment.apps/$DEPLOYMENT_NAME -n $NAMESPACE --ignore-not-found
+
+      - name: Deploy to DigitalOcean Kubernetes
+        run: kubectl apply -f $GITHUB_WORKSPACE/deployment
+
+      - name: Verify deployment
+        run: kubectl rollout status deployment.apps/$DEPLOYMENT_NAME -n $NAMESPACE
+
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: success()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}

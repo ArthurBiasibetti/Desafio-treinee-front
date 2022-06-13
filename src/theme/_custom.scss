@@ -1,0 +1,159 @@
+/*!
+* Customização de cores do projeto.
+* https://getbootstrap.com/docs/5.1/utilities/colors/
+*/
+
+/*!
+* Faz o import necessário das funções e variáveis do bootstrap.
+*/
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+/*!
+ * variáveis padrões do bootstrap.
+ * Remover comentário e editar caso necessário.
+*/
+
+// $primary: '';
+// $secondary: ''
+// $success: ''
+// $info: ''
+// $warning: ''
+// $danger: ''
+// $light: ''
+// $dark: ''
+
+/*!
+ * Lista p/ build customizado para cores adicionais.
+*/
+$custom-theme-colors: (
+  // teal colors
+  teal-100: #e6fbfc,
+  teal-200: #bff5f6,
+  teal-300: #99ecee,
+  teal-400: #4dd4d8,
+  // primary
+  teal-500: #02b5ba,
+  teal-600: #0095a6,
+  teal-700: #007790,
+  teal-800: #005c7a,
+  teal-900: #004363,
+  // white color
+  white-100: #ffffff,
+  // grays colors
+  gray-100: #e6e9ed,
+  gray-200: #c2c9d1,
+  gray-300: #9ea8b5,
+  gray-400: #7a8798,
+  gray-500: #57677b,
+  gray-600: #34465d,
+  gray-700: #12263f,
+  gray-800: #0a1723,
+  gray-900: #020406,
+  gray-rgba: rgba(0, 0, 0, 0.2),
+  // reds colors
+  red-100: #f8d7da,
+  red-200: #f1aeb5,
+  red-300: #f08287,
+  red-400: #de2b39,
+  red-500: #d30014,
+  red-600: #b02a37,
+  red-700: #842029,
+  red-800: #58151c,
+  red-900: #2c0b0e,
+  // yellows colors
+  yellow-100: #fff3cd,
+  yellow-200: #ffe69c,
+  yellow-300: #ffda6a,
+  yellow-400: #ffcd39,
+  yellow-500: #ffbf00,
+  yellow-600: #dea500,
+  yellow-700: #bd8600,
+  yellow-800: #664d03,
+  yellow-900: #332701,
+  // greens colors
+  green-100: #d1e7dd,
+  green-200: #a3cfbb,
+  green-300: #75b798,
+  green-400: #5cd3a1,
+  green-500: #198754,
+  green-600: #146c43,
+  green-700: #0f5132,
+  green-800: #0a3622,
+  green-900: #051b11,
+  //primary
+  primary-100: #99e2b4,
+  primary-200: #88d4ab,
+  primary-300: #78c6a3,
+  primary-400: #67b99a,
+  primary-500: #56ab91,
+  primary-600: #469d89,
+  primary-700: #358f80,
+  primary-800: #248277,
+  primary-900: #14746f,
+  primary-1000: #036666
+);
+
+/*!
+ * Lista p/ build padrão do bootstrap.
+*/
+$theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark,
+);
+
+/*!
+ * Cria o merge/loop das duas listas com suas respectivas configurações.
+*/
+
+// $color: map-merge(map-merge($color-name, $color-event), $color-category);
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, '$value');
+$utilities-colors: map-merge(
+  $theme-colors-rgb,
+  (
+    'black': to-rgb($black),
+    'white': to-rgb($white),
+    'body': to-rgb($body-color),
+  )
+);
+
+/*!
+ * Cria as novas classes para poder ser utilizadas pelo projeto caso necessário.
+ * ex: <p className="text-red-100">Teste</p>
+ * ex 2: <div className="bg-red-100">Teste</div>
+*/
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, '$key', 'text');
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, '$key', 'bg');
+
+/*!
+ * @each para criar variaveis root para utilizar pelo projeto.
+ * ex: color: var(--main-color-lighter);
+*/
+:root {
+  @each $color, $value in $custom-theme-colors {
+    --#{$color}: #{$value};
+  }
+
+  --is-400: 400;
+  --is-600: 600;
+  --is-700: 700;
+
+  --is-sm: 0.875rem;
+  --is-md: 1rem;
+
+  --font-family: 'Titillium Web', sans-serif;
+}
+
+/*!
+ * Depois que todo o ajuste acima for concluído
+ * chamamos o arquivo do bootstrap.
+*/
+@import '~bootstrap/scss/bootstrap';

@@ -1,0 +1,70 @@
+name: Stage deploy workflow
+on:
+  push:
+    branches: ['stage']
+  workflow_dispatch:
+
+env:
+  DEPLOYMENT_NAME: quickstart-react-deployment-stage
+  IMAGE: quickstart/quickstart-react
+  TAG: stage
+  NAMESPACE: quickstart
+  PROJECT_NAME: quickstart-react
+
+jobs:
+  build:
+    name: Stage deploy job
+    runs-on: [self-hosted, kubernetes]
+    env:
+      REACT_APP_VAR_1: teste
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Checkout actions
+        uses: actions/checkout@v2
+        with:
+          repository: SoftdesignBrasil/github-actions
+          ref: main
+          token: ${{secrets.ACTIONS_TOKEN}}
+          path: ./.github/actions
+
+      - name: Use Node 14
+        uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - uses: ./.github/actions/docker-build-push
+        with:
+          image-name: $IMAGE
+          version: $TAG
+
+      - uses: ./.github/actions/k8s-soft-deploy
+        id: k8s-soft-deploy
+        with:
+          yamls-folder: k8s/stage
+          namespace: $NAMESPACE
+          app-selector: $PROJECT_NAME-$TAG
+          ingress-name: $PROJECT_NAME-ingress-$TAG
+
+      - uses: ./.github/actions/move-stagetest
+        with:
+          project-prefix: $NAMESPACE
+          jira-user: ${{secrets.JIRA_USER}}
+          jira-pass: ${{secrets.JIRA_PASS}}
+
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}

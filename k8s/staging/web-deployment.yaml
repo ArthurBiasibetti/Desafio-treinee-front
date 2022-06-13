@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quickstart-react-backoffice-deployment-staging
+  namespace: quickstart
+spec:
+  selector:
+    matchLabels:
+      app: quickstart-react-backoffice-staging
+  template:
+    metadata:
+      labels:
+        app: quickstart-react-backoffice-staging
+    spec:
+      containers:
+        - name: quickstart-react-backoffice-container-staging
+          image: registry.softdesign-rs.com.br/quickstart/quickstart-react-backoffice:staging
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: quickstart-react-backoffice-service-staging
+  namespace: quickstart
+spec:
+  selector:
+    app: quickstart-react-backoffice-staging
+  type: NodePort
+  ports:
+    - name: app
+      port: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: quickstart-react-backoffice-ingress-staging
+  namespace: quickstart
+spec:
+  rules:
+    - host: quickstart-react-backoffice-staging.ingress.softdesign.com.br
+      http:
+        paths:
+          - backend:
+              serviceName: quickstart-react-backoffice-service-staging
+              servicePort: 80
+            path: /

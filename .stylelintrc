@@ -1,0 +1,28 @@
+{
+  "extends": "stylelint-config-recommended",
+  "plugins": ["stylelint-scss", "stylelint-declaration-block-no-ignored-properties"],
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "indentation": 2,
+    "string-quotes": "single",
+    "color-hex-length": "long",
+    "plugin/declaration-block-no-ignored-properties": true,
+    "no-invalid-position-at-import-rule": null,
+    "at-rule-no-unknown": null,
+    "color-named": "never",
+    "font-weight-notation": "numeric",
+    "color-hex-case": "lower",
+    "unit-case": "lower",
+    "value-keyword-case": "lower",
+    "property-case": "lower",
+    "selector-pseudo-class-case": "lower",
+    "selector-pseudo-element-case": "lower",
+    "selector-type-case": "lower",
+    "media-feature-name-case": "lower",
+    "at-rule-name-case": "lower",
+    "linebreaks": "unix",
+    "no-empty-first-line": true,
+    "no-eol-whitespace": true,
+    "no-descending-specificity": null
+  }
+}

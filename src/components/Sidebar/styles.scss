@@ -1,0 +1,55 @@
+.sidebar {
+  background-color: var(--gray-700);
+  border-right: 1px solid var(--gray-rgba);
+  min-height: 100vh;
+  max-height: 100vh;
+  min-width: 15.625rem;
+  max-width: 15.625rem;
+  position: fixed;
+  transition: 0.2s ease-in;
+  &__brand {
+    padding-top: 0.2rem;
+    padding-bottom: 2rem;
+    svg {
+      min-width: 10rem;
+      max-width: 10rem;
+    }
+  }
+  &__routes {
+    &--ul {
+      line-height: 2.8rem;
+      list-style-type: none;
+      padding-left: 0;
+    }
+    &--link {
+      color: var(--white-100);
+      font-weight: var(--is-400);
+      padding-left: 1rem;
+      text-decoration: none;
+      &:hover,
+      &:focus {
+        color: var(--white-100);
+      }
+    }
+    &--title {
+      margin-left: 0.3rem;
+      position: relative;
+      top: 0.063rem;
+    }
+    &--active {
+      background-color: var(--teal-500);
+      color: var(--white-100) !important;
+      font-weight: var(--is-500) !important;
+    }
+  }
+}
+
+.min-width {
+  transition: 0.1s ease-out;
+  min-width: 0;
+  max-width: 0;
+  .sidebar__brand,
+  .sidebar__routes {
+    display: none;
+  }
+}

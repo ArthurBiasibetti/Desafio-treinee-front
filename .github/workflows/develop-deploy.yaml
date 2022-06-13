@@ -1,0 +1,74 @@
+name: Develop deploy workflow
+on:
+  pull_request:
+    types: [closed]
+    branches: ['develop']
+  workflow_dispatch:
+
+env:
+  DEPLOYMENT_NAME: quickstart-react-deployment-develop
+  IMAGE: quickstart/quickstart-react
+  TAG: develop
+  NAMESPACE: quickstart
+  PROJECT_NAME: quickstart-react
+
+jobs:
+  build:
+    name: Develop deploy job
+    if: ${{ github.event.pull_request.merged || github.event_name == 'workflow_dispatch' }}
+    runs-on: [self-hosted, kubernetes]
+    env:
+      REACT_APP_VAR_1: teste
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Checkout actions
+        uses: actions/checkout@v2
+        with:
+          repository: SoftdesignBrasil/github-actions
+          ref: main
+          token: ${{secrets.ACTIONS_TOKEN}}
+          path: ./.github/actions
+
+      - name: Use Node 14
+        uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - uses: ./.github/actions/docker-build-push
+        with:
+          image-name: $IMAGE
+          version: $TAG
+
+      - uses: ./.github/actions/k8s-soft-deploy
+        id: k8s-soft-deploy
+        with:
+          yamls-folder: k8s/develop
+          namespace: $NAMESPACE
+          app-selector: $PROJECT_NAME-$TAG
+          ingress-name: $PROJECT_NAME-ingress-$TAG
+
+      - uses: ./.github/actions/move-deploy-and-comment
+        if: ${{ github.head_ref }} #only when PR is merged
+        with:
+          jira-key: ${{ github.head_ref }}
+          url: ${{ steps.k8s-soft-deploy.outputs.url }}
+          jira-user: ${{secrets.JIRA_USER}}
+          jira-pass: ${{secrets.JIRA_PASS}}
+
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}
