@@ -3,20 +3,14 @@ import { Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Section from '../../../components/Section';
 import Text from '../../../components/Text';
-import DataTable, { IColumn } from '../../../components/DataTable';
 import { IUser } from '../../../interfaces';
 import UsersService from '../../../services/users.service';
 import toastMsg, { ToastType } from '../../../utils/toastMsg';
 import Button from '../../../components/Button';
 import { useAuth } from '../../../contexts/AuthContext';
 import WarningModal from '../../../components/WarningModal';
-
-const columns = [
-  { label: 'Nome', key: 'name' },
-  { label: 'Data de nascimento', key: 'birthday' },
-  { label: 'CPF', key: 'cpf', type: 'cpf' },
-  { label: 'Permissões', key: 'permission' },
-] as IColumn[];
+import WorkerCard from '../../../components/WorkerCard';
+import './styles.scss';
 
 const Users: React.FunctionComponent = (): React.ReactElement => {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -79,16 +73,20 @@ const Users: React.FunctionComponent = (): React.ReactElement => {
           </Button>
         </Col>
         <Col md={12}>
-          <DataTable
-            data={users}
-            columns={columns}
-            hasActions={loggedUser.permission === 'ADMIN'}
-            deleteAction={(id) => {
-              setShowDeleteModal(true);
-              setSelectedUser(id);
-            }}
-            editAction={(id) => navigate(`/funcionarios/acao/${id}`)}
-          />
+          {users.map((user, index) => (
+            <div key={user.id} className="card__wrapper">
+              <WorkerCard
+                startOpen={index === 0}
+                hasActions={loggedUser.permission === 'ADMIN'}
+                deleteAction={(id) => {
+                  setShowDeleteModal(true);
+                  setSelectedUser(id);
+                }}
+                editAction={(id) => navigate(`/funcionarios/acao/${id}`)}
+                user={user}
+              />
+            </div>
+          ))}
         </Col>
       </Row>
 

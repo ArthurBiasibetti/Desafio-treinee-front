@@ -3,7 +3,7 @@ import { Accordion, AccordionProps } from 'react-bootstrap';
 import './styles.scss';
 
 interface IAccordion extends AccordionProps {
-  title: string;
+  header: string | React.ReactElement;
   body: React.ReactElement;
   defaultActive?: string;
   active?: string;
@@ -11,7 +11,7 @@ interface IAccordion extends AccordionProps {
 }
 
 const DataAccordion = ({
-  title,
+  header,
   body,
   defaultActive = '0',
   active = '0',
@@ -19,7 +19,7 @@ const DataAccordion = ({
 }: IAccordion): React.ReactElement => (
   <Accordion className="dataAccordion" defaultActiveKey={defaultActive}>
     <Accordion.Item eventKey={active}>
-      <Accordion.Header>{title}</Accordion.Header>
+      <Accordion.Header>{header}</Accordion.Header>
       <Accordion.Body className={className}>{body}</Accordion.Body>
     </Accordion.Item>
   </Accordion>

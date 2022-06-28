@@ -1,0 +1,36 @@
+.main__content {
+  width: 100%;
+  height: fit-content;
+  min-height: 100px;
+
+  padding: 10px;
+}
+
+.delete__button {
+  display: flex;
+  align-items: center;
+
+  color: red;
+  text-decoration: underline;
+
+  padding: 0;
+  background: none;
+  border: none;
+  margin: none;
+
+  text-align: left;
+}
+
+.header__content {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+
+  span {
+    margin-left: 8px;
+  }
+  &:hover {
+    transform: scale(1.35);
+  }
+}
